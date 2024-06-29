@@ -185,6 +185,28 @@
             z-index: -1; /* Ensure the backdrop is below the dialog */
         }
 
+        #dialogContainer2 {
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 10000; /* Ensure the container is above other elements */
+        }
+
+        #dialogContainer2::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Black backdrop with 50% opacity */
+            z-index: -1; /* Ensure the backdrop is below the dialog */
+        }
+
         dialog {
             border: none;
             padding: 1em;
@@ -231,6 +253,23 @@
                 </a>
                 <form method="dialog">
                     <button onclick="document.querySelector('#dialogContainer').style.animation = 'moveDownNow 1s forwards'"
+                            class="btn btn-outline-secondary py-2 px-3 ms-3">
+                        Close
+                    </button>
+                </form>
+            </div>
+        </dialog>
+    </div>
+
+    <div id="dialogContainer2" style="display: none;" class="wow fadeIn animated slideInDown" data-wow-delay="0.1s">
+        <dialog id="dialogForRandomNumber" class="bg-dark text-light">
+            <h2 class="text-light">Your random number!</h2>
+            <p id="randomNumberBox">
+
+            </p>
+            <div style="display: flex; flex-direction: row;">
+                <form method="dialog">
+                    <button onclick="document.querySelector('#dialogContainer2').style.animation = 'moveDownNow 1s forwards'"
                             class="btn btn-outline-secondary py-2 px-3 ms-3">
                         Close
                     </button>
@@ -939,7 +978,8 @@
                     <div class="service-item bg-white text-center h-100 p-4 p-xl-5">
                         <img class="img-fluid mb-4 w-25" src="/img/Hero/Icons/Volunteer%20Activism%20Icon.png" alt="">
                         <h4 class="mb-3">Educating Students</h4>
-                        <p class="mb-4">We plan on going around and presenting to schools around New Jersey, and even the
+                        <p class="mb-4">We plan on going around and presenting to schools around New Jersey, and even
+                            the
                             USA, to educate students and their families about the dangers of Mercury in CFL bulbs.
                         </p>
                         <!--<a class="btn btn-outline-primary px-3" href="">
@@ -1188,6 +1228,18 @@
 
                   </div>
                 </div>-->
+                <div>
+                    <button class="btn btn-primary" onclick="getRandomNumber()">Random Number</button>
+                    <script>
+                        function getRandomNumber() {
+                            // random number between 1 and 10
+                            document.querySelector("#randomNumberBox").innerText = `Your number is ${Math.floor(Math.random() * 10)}.`
+                            document.querySelector('#dialogContainer2').style.display = 'block'
+                            document.querySelector('#dialogContainer2').style.animation = 'moveUpNow 1s forwards'
+                            document.querySelector("#dialogForRandomNumber").showModal();
+                        }
+                    </script>
+                </div>
             </div>
         </div>
         <div class="container-fluid copyright">
